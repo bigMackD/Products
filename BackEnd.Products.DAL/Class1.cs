@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Products.Infrastructure
+namespace BackEnd.Products.DAL
 {
     public class Class1
     {
