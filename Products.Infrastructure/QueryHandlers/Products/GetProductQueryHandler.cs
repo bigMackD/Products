@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using BackEnd.Products.Contracts.Models.Products;
 using BackEnd.Products.Contracts.Request.Products;
 using BackEnd.Products.Contracts.Response.Products;
@@ -9,41 +7,41 @@ using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
 
 namespace BackEnd.Products.Infrastructure.QueryHandlers.Products
 {
-    public class GetProductListQueryHandler : IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>>
+    public class GetProductQueryHandler : IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>
     {
         private readonly IProductsRepository _productsRepository;
 
-        public GetProductListQueryHandler(IProductsRepository productsRepository)
+        public GetProductQueryHandler(IProductsRepository productsRepository)
         {
             _productsRepository = productsRepository;
         }
-
-        public GetProductListResponse Handle(GetProductListQuery query)
+        public GetProductResponse Handle(GetProductQuery query)
         {
-            if (query == null)
-                return new GetProductListResponse
+            if(query == null)
+                return new GetProductResponse
                 {
                     Success = false,
                     Errors = new[] { "Request is empty!" }
                 };
             try
             {
-                var products = _productsRepository.GetAll();
-                var productsMapped = products.Select(x => new ProductModel
+                var product = _productsRepository.Get(query.Id);
+                var model = new ProductModel
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Price = x.Price
-                });
-                return new GetProductListResponse
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price
+                };
+
+                return new GetProductResponse
                 {
                     Success = true,
-                    Content = productsMapped,
+                    Content = model
                 };
             }
             catch (Exception ex)
             {
-                return new GetProductListResponse
+                return new GetProductResponse
                 {
                     Success = false,
                     Errors = new[] { ex.Message }

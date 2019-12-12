@@ -4,7 +4,7 @@ using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
 
 namespace BackEnd.Products.Contracts.Request.Products
 {
-    public class GetProductRequest : IQuery
+    public class GetProductQuery : IQuery
     {
         public int Id { get; set; }
     }

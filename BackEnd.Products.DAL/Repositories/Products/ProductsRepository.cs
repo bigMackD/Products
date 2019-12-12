@@ -38,5 +38,10 @@ namespace BackEnd.Products.DAL.Repositories.Products
             };
             return products.AsQueryable();
         }
+
+        public Product Get(int id)
+        {
+            return GetAll().SingleOrDefault(x => x.Id == id);
+        }
     }
 }

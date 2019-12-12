@@ -10,7 +10,7 @@ using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
 
 namespace BackEnd.Products.Infrastructure.CommandHandlers.Products
 {
-    public class GetProductListCommandHandler : IQueryHandler<GetProductListRequest, GetProductListResponse, IEnumerable<ProductModel>>
+    public class GetProductListCommandHandler : IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>>
     {
         private readonly IProductsRepository _productsRepository;
 
@@ -19,7 +19,7 @@ namespace BackEnd.Products.Infrastructure.CommandHandlers.Products
             _productsRepository = productsRepository;
         }
 
-        public GetProductListResponse Handle(GetProductListRequest command)
+        public GetProductListResponse Handle(GetProductListQuery command)
         {
             if(command == null)
                 return new GetProductListResponse()

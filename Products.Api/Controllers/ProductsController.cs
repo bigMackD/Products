@@ -1,27 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using BackEnd.Products.Contracts.Models.Products;
 using BackEnd.Products.Contracts.Request.Products;
-using BackEnd.Products.Infrastructure.QueryHandlers.Products;
-using Microsoft.AspNetCore.Http;
+using BackEnd.Products.Contracts.Response.Products;
+using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Products.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly GetProductListQueryHandler _productsQueryHandler;
+        private readonly IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>> _productsQueryHandler;
+        private readonly IQueryHandler<GetProductQuery, GetProductResponse, ProductModel> _productQueryHandler;
 
-        public ProductsController(GetProductListQueryHandler productsQueryHandler)
+        public ProductsController(
+            IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>> productsQueryHandler,
+            IQueryHandler<GetProductQuery, GetProductResponse, ProductModel> productQueryHandler
+            )
         {
             _productsQueryHandler = productsQueryHandler;
+            _productQueryHandler = productQueryHandler;
         }
-        public IActionResult Get(GetProductListRequest request)
+
+        /// <summary>
+        /// Returns all products
+        /// </summary>
+        [HttpGet("get")]
+        public IActionResult Get()
         {
-            return new JsonResult(_productsQueryHandler.Handle(request));
+            return new JsonResult(_productsQueryHandler.Handle(new GetProductListQuery()));
+        }
+
+        /// <summary>
+        /// Returns product by id
+        /// </summary>
+        /// <param name="query"></param>    
+        [HttpPost("get")]
+        public IActionResult GetById([FromBody] GetProductQuery query)
+        {
+            return new JsonResult(_productQueryHandler.Handle(query));
         }
     }
 }

@@ -6,7 +6,7 @@ using BackEnd.Products.Shared.Infrastructure.Query;
 
 namespace BackEnd.Products.Contracts.Request.Products
 {
-    public class GetProductListRequest : IQuery
+    public class GetProductListQuery : IQuery
     {
     }
 }
