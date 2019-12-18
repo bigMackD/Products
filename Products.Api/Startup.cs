@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BackEnd.Products.Contracts.Models.Products;
 using BackEnd.Products.Contracts.Request.Products;
 using BackEnd.Products.Contracts.Response.Products;
@@ -12,19 +9,17 @@ using BackEnd.Products.Shared.DAL.Repositories.Product;
 using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-
 
 namespace Products.Api
 {
     public class Startup
     {
+        private readonly string MyAllowSpecificOrigins = "AngularOrigin";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,11 +31,22 @@ namespace Products.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options => options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                }));
             services.AddSingleton<IProductsRepository, ProductsRepository>();
-            services.AddSingleton<IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>>, GetProductListCommandHandler>();
-            services.AddSingleton<IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>, GetProductQueryHandler>();
+            services
+                .AddSingleton<IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>>,
+                    GetProductListCommandHandler>();
+            services
+                .AddSingleton<IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>, GetProductQueryHandler
+                >();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,12 +64,13 @@ namespace Products.Api
 
             app.UseRouting();
 
+            app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseHttpsRedirection();
+
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

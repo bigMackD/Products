@@ -3,6 +3,7 @@ using BackEnd.Products.Contracts.Models.Products;
 using BackEnd.Products.Contracts.Request.Products;
 using BackEnd.Products.Contracts.Response.Products;
 using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Products.Api.Controllers
@@ -27,16 +28,19 @@ namespace BackEnd.Products.Api.Controllers
         /// Returns all products
         /// </summary>
         [HttpGet("get")]
+        [Produces("application/json")]
+        [EnableCors("AngularOrigin")]
         public IActionResult Get()
         {
             return new JsonResult(_productsQueryHandler.Handle(new GetProductListQuery()));
         }
-
+        
         /// <summary>
         /// Returns product by id
         /// </summary>
         /// <param name="query"></param>    
         [HttpPost("get")]
+        [EnableCors("AngularOrigin")]
         public IActionResult GetById([FromBody] GetProductQuery query)
         {
             return new JsonResult(_productQueryHandler.Handle(query));
