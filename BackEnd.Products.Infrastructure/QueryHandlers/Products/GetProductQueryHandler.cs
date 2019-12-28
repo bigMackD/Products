@@ -30,7 +30,12 @@ namespace BackEnd.Products.Infrastructure.QueryHandlers.Products
                 {
                     Id = product.Id,
                     Name = product.Name,
-                    Price = product.Price
+                    Code = product.Code,
+                    ReleaseDate = product.ReleaseDate,
+                    Description = product.Description,
+                    Price = product.Price,
+                    StarRating = product.StarRating,
+                    ImageUrl = product.ImageUrl
                 };
 
                 return new GetProductResponse

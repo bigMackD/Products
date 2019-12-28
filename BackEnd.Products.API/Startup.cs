@@ -3,7 +3,6 @@ using BackEnd.Products.Contracts.Models.Products;
 using BackEnd.Products.Contracts.Request.Products;
 using BackEnd.Products.Contracts.Response.Products;
 using BackEnd.Products.DAL.Repositories.Products;
-using BackEnd.Products.Infrastructure.CommandHandlers.Products;
 using BackEnd.Products.Infrastructure.QueryHandlers.Products;
 using BackEnd.Products.Shared.DAL.Repositories.Product;
 using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
@@ -42,7 +41,7 @@ namespace Products.Api
             services.AddSingleton<IProductsRepository, ProductsRepository>();
             services
                 .AddSingleton<IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>>,
-                    GetProductListCommandHandler>();
+                    GetProductListQueryHandler>();
             services
                 .AddSingleton<IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>, GetProductQueryHandler
                 >();
