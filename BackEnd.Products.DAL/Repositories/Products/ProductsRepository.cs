@@ -34,7 +34,7 @@ namespace BackEnd.Products.DAL.Repositories.Products
                 },
                 new Product()
                 {
-                    Id = 1,
+                    Id = 3,
                     Name = "Hammer",
                     Code = "TBX-0048",
                     ReleaseDate = new DateTime(2017,8,21),
@@ -44,7 +44,7 @@ namespace BackEnd.Products.DAL.Repositories.Products
                 },
                 new Product()
                 {
-                    Id = 1,
+                    Id = 4,
                     Name = "Saw",
                     Code = "TBX-0022",
                     ReleaseDate = new DateTime(2016,1,12),

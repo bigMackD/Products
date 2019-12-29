@@ -9,9 +9,14 @@ export interface IProduct {
   imageUrl: string;
 }
 
-export interface IProductResponse {
+export interface IProductsResponse {
   success: boolean,
   errors: string[],
   content: IProduct[]
 }
 
+export interface IProductResponse {
+  success: boolean,
+  errors: string[],
+  content: IProduct
+}
