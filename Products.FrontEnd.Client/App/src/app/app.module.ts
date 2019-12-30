@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './products/product-list.component';
@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { RouterModule } from'@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyMaterialModule } from './material-module';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
       {path: 'welcome', component: WelcomeComponent},
       {path: '', redirectTo: 'welcome', pathMatch: 'full'},
       {path: '**', redirectTo: 'welcome', pathMatch: 'full'},
-    ])
+    ]),
+    BrowserAnimationsModule,
+    MyMaterialModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })

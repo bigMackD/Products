@@ -1,5 +1,46 @@
-<div class="card" *ngIf='product' >
+<div class="card"
+     *ngIf='product'>
     <div class="card-header">
-        {{pageTitle + ': ' + product.name}}
+        <h4>{{product.name}}</h4>
+    </div>
+    <div class='card-body'>
+        <form [formGroup]="productForm">
+            <mat-form-field>
+                <input matInput
+                       [matDatepicker]="picker1"
+                       placeholder="Release Date"
+                       formControlName="releaseDate">
+                <mat-datepicker-toggle matSuffix
+                                       [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="demo-full-width">
+                <input formControlName="name"
+                       matInput
+                       placeholder="Name">
+            </mat-form-field>
+
+            <mat-form-field class="demo-full-width">
+                <input formControlName="code"
+                       matInput
+                       placeholder="Code"
+                       disabled="1 == 1">
+            </mat-form-field>
+
+            <mat-form-field class="demo-full-width">
+                <input formControlName="price"
+                       matInput
+                       placeholder="Price">
+            </mat-form-field>
+            <div>
+                    <button mat-flat-button color="primary" *ngIf="!editMode" class="btn-margin" (click)="onEditClick()">Edit</button>
+                    <button mat-flat-button color="accent" *ngIf="editMode" class="btn-margin" (click)="onSaveClick()">Save</button>
+                    <button mat-flat-button color="warn">Remove</button>
+            </div>
+           
+
+
+        </form>
     </div>
 </div>

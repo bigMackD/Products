@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product-response';
 import { ProductService } from './product.service';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'pm-products',
@@ -12,6 +13,7 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
+  displayedColumns  :  string[] = ['name', 'releaseDate', 'price', 'code', 'rating'];
 
   _listFilter: string;
   get listFilter(): string {
@@ -24,7 +26,7 @@ export class ProductListComponent implements OnInit {
 
   filteredProducts: IProduct[];
   products: IProduct[] = [];
-
+  dataSource: MatTableDataSource < IProduct > ;
   constructor(private productService: ProductService) {
 
   }
@@ -46,7 +48,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getAll().subscribe(data => {
       this.products = data.content
-      this.filteredProducts = data.content   
+      this.filteredProducts = data.content  
     });
   }
 }

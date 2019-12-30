@@ -43,7 +43,7 @@ namespace BackEnd.Products.Api.Controllers
         [EnableCors("AngularOrigin")]
         public IActionResult GetById([FromBody] GetProductQuery query)
         {
-            return new JsonResult(_productQueryHandler.Handle(query));
+             return new JsonResult(_productQueryHandler.Handle(query));
         }
     }
 }
