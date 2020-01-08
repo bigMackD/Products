@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using BackEnd.Products.Contracts.Models.Products;
+using BackEnd.Products.Contracts.Request.Command.Products;
 using BackEnd.Products.Contracts.Request.Products;
 using BackEnd.Products.Contracts.Response.Products;
 using BackEnd.Products.DAL.Repositories.Products;
+using BackEnd.Products.Infrastructure.CommandHandlers.Products;
 using BackEnd.Products.Infrastructure.QueryHandlers.Products;
 using BackEnd.Products.Shared.DAL.Repositories.Product;
+using BackEnd.Products.Shared.Infrastructure.CommandHandlers;
 using BackEnd.Products.Shared.Infrastructure.QueryHandlers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,8 +46,10 @@ namespace Products.Api
                 .AddSingleton<IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>>,
                     GetProductListQueryHandler>();
             services
-                .AddSingleton<IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>, GetProductQueryHandler
-                >();
+                .AddSingleton<IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>, GetProductQueryHandler>();
+            services
+                .AddSingleton<ICommandHandler<UpdateProductCommand, UpdateProductResponse, ProductModel>,
+                    UpdateProductCommandHandler>();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
         }
 

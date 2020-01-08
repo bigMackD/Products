@@ -9,8 +9,4 @@
     <ProjectReference Include="..\BackEnd.Products.Shared.DAL\BackEnd.Products.Shared.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CommandHandlers\Products\" />
-  </ItemGroup>
-
 </Project>

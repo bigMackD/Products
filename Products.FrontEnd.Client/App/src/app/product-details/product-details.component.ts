@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../products/product.service';
 import { IProduct } from '../products/product-response';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UpdateProductRequest } from '../products/product-request';
 
 @Component({
   templateUrl: './product-details.component.html',
@@ -55,7 +56,14 @@ createForm(){
   onSaveClick(){ 
     this.productForm.disable();
     this.editMode = false;
-    //TODO SAVE LOGIC
+    var request: UpdateProductRequest = {
+      id: this.product.id,
+      name: this.productForm.get('name').value,
+      releaseDate: this.productForm.get('releaseDate').value,
+      price: this.productForm.get('price').value,
+      code: this.productForm.get('code').value
+    };
+    console.log(request);
    }
 
 }

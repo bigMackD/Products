@@ -3,6 +3,7 @@ import { IProductsResponse, IProductResponse } from './product-response';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators'
+import { UpdateProductRequest } from './product-request';
 
 @Injectable({
   providedIn: 'root'
@@ -22,24 +23,21 @@ export class ProductService {
     return this.httpClient.post<IProductResponse>(this.baseUrl + 'get',{id:id})
   }
 
+  update(request: UpdateProductRequest): Observable<IProductResponse>{
+    return this.httpClient.patch<IProductResponse>(this.baseUrl + 'update', request);
+  }
+
   private handleError(err: HttpErrorResponse) {
-    // in a real world app, we may send the server to some remote logging infrastructure
-    // instead of just logging it to the console
     let errorResponse: IProductsResponse = {
       success: false,
       content: null,
       errors: []
     }
-    debugger;
     if (err.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       errorResponse.errors.push(`An error occurred: ${err.message}`)
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
       errorResponse.errors.push(`Server returned code: ${err.status}, error message is: ${err.message}`)
     }
-    //console.error(errorResponse);
     return throwError(errorResponse);
   }
 
