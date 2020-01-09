@@ -24,19 +24,20 @@
             <mat-form-field class="demo-full-width">
                 <input formControlName="code"
                        matInput
-                       placeholder="Code"
-                       disabled="1 == 1">
+                       placeholder="Code">
             </mat-form-field>
 
             <mat-form-field class="demo-full-width">
                 <input formControlName="price"
                        matInput
+                       type="number"
                        placeholder="Price">
             </mat-form-field>
             <div>
                     <button mat-flat-button color="primary" *ngIf="!editMode" class="btn-margin" (click)="onEditClick()">Edit</button>
-                    <button mat-flat-button color="accent" *ngIf="editMode" class="btn-margin" (click)="onSaveClick()">Save</button>
-                    <button mat-flat-button color="warn">Remove</button>
+                    <button mat-flat-button color="accent" *ngIf="editMode" class="btn-margin" (click)="onSaveClick()"[disabled]="!this.productForm.valid">Save</button>
+                    <button mat-flat-button color="basic" *ngIf="editMode" class="btn-margin" (click)="onCancelClick()">Cancel</button>
+                    <button mat-flat-button color="warn" (click)="openDialog()">Remove</button>
             </div>
            
 

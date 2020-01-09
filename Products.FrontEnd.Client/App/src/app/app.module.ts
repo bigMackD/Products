@@ -12,6 +12,8 @@ import { RouterModule } from'@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './material-module';
+import { MatSnackBarModule, MatDialogModule } from '@angular/material';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { MyMaterialModule } from './material-module';
     ConvertToSpacesPipe,
     StarComponent,
     ProductDetailsComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +38,11 @@ import { MyMaterialModule } from './material-module';
     ]),
     BrowserAnimationsModule,
     MyMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

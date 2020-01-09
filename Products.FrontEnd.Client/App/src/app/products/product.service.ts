@@ -24,7 +24,7 @@ export class ProductService {
   }
 
   update(request: UpdateProductRequest): Observable<IProductResponse>{
-    return this.httpClient.patch<IProductResponse>(this.baseUrl + 'update', request);
+    return this.httpClient.patch<IProductResponse>(this.baseUrl + 'edit', request);
   }
 
   private handleError(err: HttpErrorResponse) {
