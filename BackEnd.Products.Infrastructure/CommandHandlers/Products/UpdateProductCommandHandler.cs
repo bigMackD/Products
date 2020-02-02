@@ -8,7 +8,7 @@ using BackEnd.Products.Shared.Infrastructure.CommandHandlers;
 
 namespace BackEnd.Products.Infrastructure.CommandHandlers.Products
 {
-    public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand, UpdateProductResponse, ProductModel>
+    public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand, UpdateProductResponse>
     {
         private readonly IProductsRepository _productsRepository;
 

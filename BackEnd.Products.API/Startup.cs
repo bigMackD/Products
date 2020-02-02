@@ -48,8 +48,10 @@ namespace Products.Api
             services
                 .AddSingleton<IQueryHandler<GetProductQuery, GetProductResponse, ProductModel>, GetProductQueryHandler>();
             services
-                .AddSingleton<ICommandHandler<UpdateProductCommand, UpdateProductResponse, ProductModel>,
+                .AddSingleton<ICommandHandler<UpdateProductCommand, UpdateProductResponse>,
                     UpdateProductCommandHandler>();
+            services
+                .AddSingleton<ICommandHandler<DeleteProductCommand, DeleteProductResponse>, DeleteProductCommandHandler>();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
         }
 

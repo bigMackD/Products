@@ -16,15 +16,17 @@ namespace BackEnd.Products.Api.Controllers
     {
         private readonly IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>> _getProductsQueryHandler;
         private readonly IQueryHandler<GetProductQuery, GetProductResponse, ProductModel> _getProductQueryHandler;
-        private readonly ICommandHandler<UpdateProductCommand, UpdateProductResponse, ProductModel> _updateProductCommandHandler;
+        private readonly ICommandHandler<UpdateProductCommand, UpdateProductResponse> _updateProductCommandHandler;
+        private readonly ICommandHandler<DeleteProductCommand, DeleteProductResponse> _deleteProductCommandHandler;
 
         public ProductsController(
             IQueryHandler<GetProductListQuery, GetProductListResponse, IEnumerable<ProductModel>> getProductsQueryHandler,
-            IQueryHandler<GetProductQuery, GetProductResponse, ProductModel> getProductQueryHandler, ICommandHandler<UpdateProductCommand, UpdateProductResponse, ProductModel> updateProductCommandHandler)
+            IQueryHandler<GetProductQuery, GetProductResponse, ProductModel> getProductQueryHandler, ICommandHandler<UpdateProductCommand, UpdateProductResponse> updateProductCommandHandler, ICommandHandler<DeleteProductCommand, DeleteProductResponse> deleteProductCommandHandler)
         {
             _getProductsQueryHandler = getProductsQueryHandler;
             _getProductQueryHandler = getProductQueryHandler;
             _updateProductCommandHandler = updateProductCommandHandler;
+            _deleteProductCommandHandler = deleteProductCommandHandler;
         }
 
         /// <summary>
@@ -60,5 +62,15 @@ namespace BackEnd.Products.Api.Controllers
             return new JsonResult(_updateProductCommandHandler.Handle(command));
         }
 
+        /// <summary>
+        /// Deletes product with specified id
+        /// </summary>
+        /// <param name="command"></param>    
+        [HttpDelete("delete")]
+        [EnableCors("AngularOrigin")]
+        public IActionResult Delete([FromBody] DeleteProductCommand command)
+        {
+            return  new JsonResult(_deleteProductCommandHandler.Handle(command));
+        }
     }
 }

@@ -53,7 +53,6 @@ namespace BackEnd.Products.DAL.Repositories.Products
         };
         public IQueryable<Product> GetAll()
         {
-           
             return _products.AsQueryable();
         }
 
@@ -73,6 +72,11 @@ namespace BackEnd.Products.DAL.Repositories.Products
             _products[index].ReleaseDate = product.ReleaseDate;
             _products[index].Price = product.Price;
             return _products[index];
+        }
+
+        public void Delete(int id)
+        {
+            _products.RemoveAll(x => x.Id == id);
         }
     }
 }

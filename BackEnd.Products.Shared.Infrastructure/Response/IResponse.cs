@@ -1,10 +1,8 @@
 ﻿namespace BackEnd.Products.Shared.Infrastructure.Response
 
 {
-    public interface IResponse<T>
+    public interface IResponse<T> : IBaseResponse
     {
-         bool Success { get; set; }
-         string[] Errors { get; set; }
-         T Content { get; set; }
+        T Content { get; set; }
     }
 }
