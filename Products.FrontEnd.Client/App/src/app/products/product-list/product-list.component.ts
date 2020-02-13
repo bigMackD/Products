@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct } from './product-response';
-import { ProductService } from './product.service';
+import { IProduct } from '../models/product-response';
+
 import { MatTableDataSource } from '@angular/material';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'pm-products',

@@ -8,5 +8,6 @@ namespace BackEnd.Products.Shared.DAL.Repositories.Product
         Entities.Products.Product Get(int id);
         Entities.Products.Product Update(Entities.Products.Product product);
         void Delete(int id);
+        void Add(Entities.Products.Product product);
     }
 }

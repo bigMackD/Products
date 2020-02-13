@@ -3,17 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './products/product-list.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
 import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
 import { StarComponent } from './shared/star.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { RouterModule } from'@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './material-module';
 import { MatSnackBarModule, MatDialogModule } from '@angular/material';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { AddProductComponent } from './products/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,15 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     StarComponent,
     ProductDetailsComponent,
     WelcomeComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
+      {path: 'products/add', component: AddProductComponent},
       {path: 'products', component: ProductListComponent},
       {path: 'products/:id', component: ProductDetailsComponent},
       {path: 'welcome', component: WelcomeComponent},

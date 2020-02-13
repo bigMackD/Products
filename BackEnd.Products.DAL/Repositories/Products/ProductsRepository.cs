@@ -78,5 +78,10 @@ namespace BackEnd.Products.DAL.Repositories.Products
         {
             _products.RemoveAll(x => x.Id == id);
         }
+
+        public void Add(Product product)
+        {
+            _products.Add(product);
+        }
     }
 }

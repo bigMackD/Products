@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../products/product.service';
-import { IProduct, IProductResponse } from '../products/product-response';
+import { IProduct, IProductResponse } from '../models/product-response';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { UpdateProductRequest } from '../products/product-request';
+import { UpdateProductRequest, DeleteProductRequest } from '../models/product-request';
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { ProductService } from '../product.service';
 
 @Component({
   templateUrl: './product-details.component.html',
@@ -96,14 +96,21 @@ createForm(){
     dialogRef.afterClosed().subscribe(
       data => {
         if(data){
-          this.removeProduct();
+          this.removeProduct(this.product.id);
         }
       }
   );    
 }
 
-  removeProduct(){
-    //TODO ADD REMOVE LOGIC
-    this.router.navigateByUrl('/products');
+  removeProduct(productId: number){
+    let request: DeleteProductRequest = {
+      id: productId
+    };
+    this.productService.delete(request).subscribe(response => {
+      if(response.success == true){
+        this.router.navigateByUrl('/products')
+      }
+    });
+   ;
   }
 }
